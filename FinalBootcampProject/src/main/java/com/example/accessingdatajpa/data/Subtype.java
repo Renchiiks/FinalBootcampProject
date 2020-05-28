@@ -3,10 +3,7 @@ package com.example.accessingdatajpa.data;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -16,18 +13,20 @@ public class Subtype {
     }
 
     public Subtype(int id, String name) {
-        this.subtype_id = id;
+        this.id = id;
         this.subtype_name = name;
     }
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int subtype_id;
+    @Column(name = "subtype_id")
+    private int id;
+    @Column(name = "subtype_name")
     private String subtype_name;
 
     @Override
     public String toString() {
         return "Subtype{" +
-                "subtype_id=" + subtype_id +
+                "subtype_id=" + id +
                 ", subtype_name='" + subtype_name + '\'' +
                 '}';
     }

@@ -108,11 +108,11 @@
             <!--/*@thymesVar id="getAllObjects" type=""*/-->
             <tr th:each="tourismobject: ${getAllObjects}">
 
-                <td th:text="${tourismobject.id}">Id</td>
-                <td th:text="${tourismobject.name}">Nosaukums</td>
-                <td th:text="${tourismobject.address}">Adrese</td>
-                <td th:text="${tourismobject.phone}">Telefona numurs</td>
-                <td th:text="${tourismobject.region}">Regions</td>
+                <td th:text="${tourismobject.getId()}">Id</td>
+                <td th:text="${tourismobject.getName()}">Nosaukums</td>
+                <td th:text="${tourismobject.getAddress()}">Adrese</td>
+                <td th:text="${tourismobject.getPhone()}">Telefona numurs</td>
+                <td th:text="${tourismobject.getRegion().getName()}">Regions</td>
             </tr>
             </tbody>
             <tfoot>

@@ -16,7 +16,7 @@ public class TourismObject {
     protected TourismObject() {
     }
 
-    public TourismObject(int id, String name, String address, String phone, Region region) { //, Type type, Subtype subtype
+    public TourismObject(int id, String name, String address, String phone, Region region, Type type, Subtype subtype) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -32,7 +32,7 @@ public class TourismObject {
     private int id;
     @Column(name = "object_name")
     private String name;
-    @Column(name = "object_adress")
+    @Column(name = "object_address")
     private String address;
     @Column(name = "object_phone")
     private String phone;

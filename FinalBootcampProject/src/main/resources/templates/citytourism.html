@@ -20,7 +20,7 @@
         background-position: center;
     }
     #myInput {
-        background-image: url('search.png'); /* Add a search icon to input */
+        background-image: url("/media/search.png"); /* Add a search icon to input */
         background-position: 10px 12px; /* Position the search icon */
         background-repeat: no-repeat; /* Do not repeat the icon image */
         width: 100%; /* Full-width */
@@ -107,12 +107,12 @@
             <tbody>
             <!--/*@thymesVar id="getAllObjects" type=""*/-->
             <tr th:each="tourismobject: ${getAllObjects}">
-
-                <td th:text="${tourismobject.id}">Id</td>
-                <td th:text="${tourismobject.name}">Nosaukums</td>
-                <td th:text="${tourismobject.address}">Adrese</td>
-                <td th:text="${tourismobject.phone}">Telefona numurs</td>
-                <td th:text="${tourismobject.region}">Regions</td>
+                
+                <td th:text="${tourismobject.getId()}">Id</td>
+                <td th:text="${tourismobject.getName()}">Nosaukums</td>
+                <td th:text="${tourismobject.getAddress()}">Adrese</td>
+                <td th:text="${tourismobject.getPhone()}">Telefona numurs</td>
+                <td th:text="${tourismobject.getRegion().getName()}">Regions</td>
             </tr>
             </tbody>
             <tfoot>
