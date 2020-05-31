@@ -13,6 +13,8 @@ public interface TourismObjectRepository extends JpaRepository<TourismObject, In
     //List<ObjectsData> findByName(String name);
     List<TourismObject> findAll();
     List<TourismObject> findByTypeId(int id);
+    List<TourismObject> findByRegionId(int id);
+    List<TourismObject> findByTypeIdAndRegionId(int idType, int idRegion);
 
     //ObjectsData findById(int id);
 }

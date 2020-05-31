@@ -6,7 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-
 import java.util.List;
 
 @Controller
@@ -17,23 +16,22 @@ public class MainController {
     private TourismObjectService service;
 
 
-    @GetMapping("/citytourism")
-    public String cityTourism(Model model) {
-        List<TourismObject> getCityObjects = service.findByTypeId(1);
-        model.addAttribute("CityObjects", getCityObjects);
-        return "citytourism";
+    @GetMapping("/tourism/{idType}")
+    public String tourismType(@PathVariable int idType, Model model) {
+        List<TourismObject> tourismObjects = service.findByTypeId(idType);
+        model.addAttribute("tourismObjects", tourismObjects);
+        return "tourismObjects";
+
+    }
+    @GetMapping("/tourism/{idType}/region/{idRegion}")
+    public String tourismByRegion(@PathVariable int idType, @PathVariable int idRegion, Model model) {
+        List<TourismObject> tourismObjectsByRegion = service.findByTypeIdAndRegionId(idType,idRegion);
+        model.addAttribute("tourismObjects", tourismObjectsByRegion);
+        return "tourismObjects";
 
     }
 
-    @GetMapping( "/countrytourism")
-    public String countryTourism(Model model) {
-        List<TourismObject> getCountryObjects = service.findByTypeId(2);
-        model.addAttribute("CountryObjects", getCountryObjects);
-        return "countrytourism";
-
-    }
-
-    @GetMapping( "/home")
+    @GetMapping("/home")
     public String home(Model model) {
         model.addAttribute("title", "Main Page");
         return "home";

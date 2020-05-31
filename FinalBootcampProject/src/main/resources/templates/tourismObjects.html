@@ -106,7 +106,7 @@
             </thead>
             <tbody>
             <!--/*@thymesVar id="getAllObjects" type=""*/-->
-            <tr th:each="tourismobject: ${CountryObjects}">
+            <tr th:each="tourismobject: ${tourismObjects}">
 
                 <td th:text="${tourismobject.getId()}">Id</td>
                 <td th:text="${tourismobject.getName()}">Nosaukums</td>

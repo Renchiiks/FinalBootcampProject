@@ -9,12 +9,13 @@ import java.util.List;
 
 @Service
 public class TourismObjectService {
-   @Autowired
+    @Autowired
     private TourismObjectRepository repo;
 
     public List<TourismObject> findAll() {
         return repo.findAll();
     }
+
     public List<TourismObject> findByTypeId(int id) {
 
         return repo.findByTypeId(id);
@@ -27,8 +28,15 @@ public class TourismObjectService {
     }
 
 
-
     public void delete(int id) {
         repo.deleteById(id);
+    }
+
+    public List<TourismObject> findByRegion(int id) {
+        return repo.findByRegionId(id);
+    }
+
+    public List<TourismObject> findByTypeIdAndRegionId(int idType, int idRegion) {
+        return repo.findByTypeIdAndRegionId(idType, idRegion);
     }
 }
