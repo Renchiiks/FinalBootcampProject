@@ -17,11 +17,9 @@ public class TourismObjectService {
     }
 
     public List<TourismObject> findByTypeId(int id) {
-
         return repo.findByTypeId(id);
 
     }
-
 
     public void save(TourismObject object) {
         repo.save(object);
