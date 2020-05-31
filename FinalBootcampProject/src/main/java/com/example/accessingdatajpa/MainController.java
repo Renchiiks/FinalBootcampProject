@@ -2,6 +2,8 @@ package com.example.accessingdatajpa;
 
 import com.example.accessingdatajpa.data.TourismObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +17,6 @@ public class MainController {
     @Autowired
     private TourismObjectService service;
 
-
     @GetMapping("/tourism/{idType}")
     public String tourismType(@PathVariable int idType, Model model) {
         List<TourismObject> tourismObjects = service.findByTypeId(idType);
@@ -23,18 +24,28 @@ public class MainController {
         return "tourismObjects";
 
     }
+
     @GetMapping("/tourism/{idType}/region/{idRegion}")
     public String tourismByRegion(@PathVariable int idType, @PathVariable int idRegion, Model model) {
-        List<TourismObject> tourismObjectsByRegion = service.findByTypeIdAndRegionId(idType,idRegion);
+        List<TourismObject> tourismObjectsByRegion = service.findByTypeIdAndRegionId(idType, idRegion);
         model.addAttribute("tourismObjects", tourismObjectsByRegion);
         return "tourismObjects";
-
     }
+
 
     @GetMapping("/home")
     public String home(Model model) {
         model.addAttribute("title", "Main Page");
         return "home";
     }
+
+    @PostMapping(value = "/tourism/add", consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
+    @ResponseBody
+    public ResponseEntity<Integer> addTourismObject(@RequestBody TourismObject tourismObject) {
+        service.addTourismObject(tourismObject);
+        return ResponseEntity.ok(tourismObject.getId());
+
+    }
+
 }
 

@@ -16,18 +16,19 @@ public class TourismObject {
     protected TourismObject() {
     }
 
-    public TourismObject(int id, String name, String address, String phone, Region region, Type type, Subtype subtype) {
+    public TourismObject(int id, String name, String address, String phone, String description, Region region, Type type, Subtype subtype) {
         this.id = id;
         this.name = name;
         this.address = address;
         this.phone = phone;
+        this.description = description;
         this.region = region;
         this.type = type;
         this.subtype = subtype;
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "object_id")
     private int id;
     @Column(name = "object_name")
@@ -36,6 +37,8 @@ public class TourismObject {
     private String address;
     @Column(name = "object_phone")
     private String phone;
+    @Column(name = "object_description")
+    private String description;
     @ManyToOne
     @JoinColumn(name = "object_region_id")
     private Region region;

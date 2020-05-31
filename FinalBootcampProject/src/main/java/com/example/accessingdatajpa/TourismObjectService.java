@@ -39,4 +39,13 @@ public class TourismObjectService {
     public List<TourismObject> findByTypeIdAndRegionId(int idType, int idRegion) {
         return repo.findByTypeIdAndRegionId(idType, idRegion);
     }
+
+    public void addTourismObject(TourismObject tourismObject) {
+
+         repo.save(tourismObject);
+    }
+
+    public TourismObject findById(int idObject) {
+        return repo.getOne(idObject);
+    }
 }
