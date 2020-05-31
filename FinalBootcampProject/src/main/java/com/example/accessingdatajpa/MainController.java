@@ -19,16 +19,16 @@ public class MainController {
 
     @GetMapping("/citytourism")
     public String cityTourism(Model model) {
-        List<TourismObject> getAllObjects = service.findAll();
-        model.addAttribute("getAllObjects", getAllObjects);
+        List<TourismObject> getCityObjects = service.findByTypeId(1);
+        model.addAttribute("CityObjects", getCityObjects);
         return "citytourism";
 
     }
 
     @GetMapping( "/countrytourism")
     public String countryTourism(Model model) {
-        List<TourismObject> getAllObjects = service.findAll();
-        model.addAttribute("getAllObjects", getAllObjects);
+        List<TourismObject> getCountryObjects = service.findByTypeId(2);
+        model.addAttribute("CountryObjects", getCountryObjects);
         return "countrytourism";
 
     }

@@ -15,14 +15,18 @@ public class TourismObjectService {
     public List<TourismObject> findAll() {
         return repo.findAll();
     }
+    public List<TourismObject> findByTypeId(int id) {
+
+        return repo.findByTypeId(id);
+
+    }
+
 
     public void save(TourismObject object) {
         repo.save(object);
     }
 
-    public TourismObject get(int id) {
-        return repo.findById(id).get();
-    }
+
 
     public void delete(int id) {
         repo.deleteById(id);
