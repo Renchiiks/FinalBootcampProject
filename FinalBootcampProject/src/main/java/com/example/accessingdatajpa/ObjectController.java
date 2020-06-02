@@ -13,9 +13,5 @@ public class ObjectController {
     @Autowired
     TourismObjectRepository repo;
 
-    @GetMapping("/{idObject}")
-    public TourismObject tourismObject(@PathVariable int idObject) {
-        return repo.getTourismObjectById(idObject);
-    }
 
 }

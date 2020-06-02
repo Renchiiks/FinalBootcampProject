@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TourismObjectService {
@@ -25,7 +26,6 @@ public class TourismObjectService {
         repo.save(object);
     }
 
-
     public void delete(int id) {
         repo.deleteById(id);
     }
@@ -39,11 +39,24 @@ public class TourismObjectService {
     }
 
     public void addTourismObject(TourismObject tourismObject) {
-
-         repo.save(tourismObject);
+        repo.save(tourismObject);
     }
 
     public TourismObject findById(int idObject) {
         return repo.getOne(idObject);
+    }
+
+    public void updateTourismObject(TourismObject updatedTourismObject, int idObject) {
+        repo.findById(idObject).map(tourismObject -> {
+            tourismObject.setAddress(updatedTourismObject.getAddress());
+            tourismObject.setDescription(updatedTourismObject.getDescription());
+            tourismObject.setName(updatedTourismObject.getName());
+            tourismObject.setPhone(updatedTourismObject.getPhone());
+            tourismObject.setRegion(updatedTourismObject.getRegion());
+            tourismObject.setSubtype(updatedTourismObject.getSubtype());
+            tourismObject.setType(updatedTourismObject.getType());
+            return repo.save(tourismObject);
+        });
+
     }
 }

@@ -2,6 +2,7 @@ package com.example.accessingdatajpa;
 
 import com.example.accessingdatajpa.data.TourismObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -10,18 +11,30 @@ import java.util.List;
 
 @Controller
 
+
 public class MainController {
 
     @Autowired
     private TourismObjectService service;
 
-    @GetMapping("/tourism/{idType}")
-    public String tourismType(@PathVariable int idType, Model model) {
-        List<TourismObject> tourismObjects = service.findByTypeId(idType);
-        model.addAttribute("tourismObjects", tourismObjects);
-        return "tourismObjects";
-
+    @GetMapping("/home")
+    public String home(Model model) {
+        model.addAttribute("title", "Main Page");
+        return "home";
     }
+
+    @GetMapping("/tourism/{id}/region")
+    public String regionCity(@PathVariable int id, Model model) {
+        String title;
+        if (id == 1) {
+            title = "PILSĒTĀ";
+        } else {
+            title = "LAUKOS";
+        }
+        model.addAttribute("title", title);
+        return "region";
+    }
+
 
     @GetMapping("/tourism/{idType}/region/{idRegion}")
     public String tourismByRegion(@PathVariable int idType, @PathVariable int idRegion, Model model) {
@@ -31,31 +44,24 @@ public class MainController {
     }
 
 
-    @GetMapping("/home")
-    public String home(Model model) {
-        model.addAttribute("title", "Main Page");
-        return "home";
-    }
-    @GetMapping("/regionCity")
-    public String regionCity(Model model) {
-        model.addAttribute("title", "Region city");
-        return "regionCity";
+    @PostMapping("/tourism/add")
+    public ResponseEntity<Integer> addTourismObject(@RequestBody TourismObject tourismObject) {
+        service.addTourismObject(tourismObject);
+        return ResponseEntity.ok(tourismObject.getId());
+
     }
 
-    @GetMapping("/regionCountry")
-    public String regionCounty(Model model) {
-        model.addAttribute("title", "Region country");
-        return "regionCountry";
+    @GetMapping("tourismobject/{idObject}")
+    public ResponseEntity<Integer> tourismObject(@PathVariable int idObject) {
+        service.findById(idObject);
+        return ResponseEntity.ok(idObject);
     }
 
-
-//    @PostMapping(value = "/tourism/add", consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
-//    @ResponseBody
-//    public ResponseEntity<Integer> addTourismObject(@RequestBody TourismObject tourismObject) {
-//        service.addTourismObject(tourismObject);
-//        return ResponseEntity.ok(tourismObject.getId);
-//
-//    }
+    @PutMapping("tourismobject/update/{idObject}")
+    public ResponseEntity<?> updateTourismObject(@RequestBody TourismObject updatedTourismObject, @PathVariable int idObject) {
+        service.updateTourismObject(updatedTourismObject, idObject);
+        return ResponseEntity.ok(tourismObject(idObject));
+    }
 
 }
 
