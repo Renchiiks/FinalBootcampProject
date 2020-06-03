@@ -35,6 +35,11 @@ public class MainController {
         return "region";
     }
 
+    @GetMapping("/tourism/{idType}/region/{idRegion}/singleObject")
+    public String singleObject(Model model) {
+        model.addAttribute("title", "title");
+        return "singleObject";
+    }
 
     @GetMapping("/tourism/{idType}/region/{idRegion}")
     public String tourismByRegion(@PathVariable int idType, @PathVariable int idRegion, Model model) {

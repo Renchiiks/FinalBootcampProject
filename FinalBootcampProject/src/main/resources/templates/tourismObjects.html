@@ -80,6 +80,7 @@
         background-color: #ffffff;
         color:#000;
     }
+
 </style>
 <body>
 <header>
@@ -97,38 +98,42 @@
         <table id="myTable"class="table table-bordered "  style="width: 100%" >
             <thead >
             <tr>
-                <th>Id</th>
+
                 <th>Foto</th>
                 <th>Nosaukums</th>
                 <th>Adrese</th>
                 <th>Telefona numurs</th>
-                <th>Regions</th>
+                <th>Kategorija</th>
+                <th>Darbība</th>
             </tr>
             </thead>
             <tbody>
             <!--/*@thymesVar id="getAllObjects" type=""*/-->
             <tr th:each="tourismobject: ${tourismObjects}">
 
-                <td th:text="${tourismobject.getId()}">Id</td>
+
                 <td> <img th:src="${tourismobject.getImagePath()}" width="130" height="80"/></td>
 <!--                <td> <img th:attr="src=${tourismobject.getImage()}" width="130" height="80"/></td>-->
                 <td th:text="${tourismobject.getName()}">Nosaukums</td>
                 <td th:text="${tourismobject.getAddress()}">Adrese</td>
                 <td th:text="${tourismobject.getPhone()}">Telefona numurs</td>
-                <td th:text="${tourismobject.getRegion().getName()}">Regions</td>
+                <td th:text="${tourismobject.getSubtype().getSubtype_name()}">Regions</td>
+                <td><a href="/tourism/{idType}/region/{idRegion}/singleObject" class="btn btn-primary" >Uzzinat vairak</a></td>
             </tr>
             </tbody>
             <tfoot>
             <tr>
-                <th>Id</th>
+
                 <th>Foto</th>
                 <th>Nosaukums</th>
                 <th>Adrese</th>
                 <th>Telefona numurs</th>
-                <th>Regions</th>
+                <th>Kategorija</th>
+                <th>Darbība</th>
             </tr>
             </tfoot>
         </table>
+
 
     </div>
 
@@ -158,6 +163,8 @@
             }
         }
     }
+
+
 </script>
 </body>
 </html>

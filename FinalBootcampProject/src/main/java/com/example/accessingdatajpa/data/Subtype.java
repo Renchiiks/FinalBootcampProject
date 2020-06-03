@@ -23,6 +23,22 @@ public class Subtype {
     @Column(name = "subtype_name")
     private String subtype_name;
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getSubtype_name() {
+        return subtype_name;
+    }
+
+    public void setSubtype_name(String subtype_name) {
+        this.subtype_name = subtype_name;
+    }
+
     @Override
     public String toString() {
         return "Subtype{" +
