@@ -16,12 +16,13 @@ public class TourismObject {
     protected TourismObject() {
     }
 
-    public TourismObject(int id, String name, String address, String phone, String description, Region region, Type type, Subtype subtype) {
+    public TourismObject(int id, String name, String address, String phone, String description, String imagePath, Region region, Type type, Subtype subtype) {
         this.id = id;
         this.name = name;
         this.address = address;
         this.phone = phone;
         this.description = description;
+        this.imagePath = imagePath;
         this.region = region;
         this.type = type;
         this.subtype = subtype;
@@ -39,6 +40,8 @@ public class TourismObject {
     private String phone;
     @Column(name = "object_description")
     private String description;
+    @Column(name = "object_image")
+    private String imagePath;
     @ManyToOne
     @JoinColumn(name = "object_region_id")
     private Region region;

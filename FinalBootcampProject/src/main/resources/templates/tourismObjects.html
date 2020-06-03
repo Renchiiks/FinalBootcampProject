@@ -98,6 +98,7 @@
             <thead >
             <tr>
                 <th>Id</th>
+                <th>Foto</th>
                 <th>Nosaukums</th>
                 <th>Adrese</th>
                 <th>Telefona numurs</th>
@@ -109,6 +110,8 @@
             <tr th:each="tourismobject: ${tourismObjects}">
 
                 <td th:text="${tourismobject.getId()}">Id</td>
+                <td> <img th:src="${tourismobject.getImagePath()}" width="130" height="80"/></td>
+<!--                <td> <img th:attr="src=${tourismobject.getImage()}" width="130" height="80"/></td>-->
                 <td th:text="${tourismobject.getName()}">Nosaukums</td>
                 <td th:text="${tourismobject.getAddress()}">Adrese</td>
                 <td th:text="${tourismobject.getPhone()}">Telefona numurs</td>
@@ -118,6 +121,7 @@
             <tfoot>
             <tr>
                 <th>Id</th>
+                <th>Foto</th>
                 <th>Nosaukums</th>
                 <th>Adrese</th>
                 <th>Telefona numurs</th>
