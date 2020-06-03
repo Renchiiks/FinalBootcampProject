@@ -11,7 +11,6 @@ import java.util.List;
 
 @Controller
 
-
 public class MainController {
 
     @Autowired
@@ -35,12 +34,6 @@ public class MainController {
         return "region";
     }
 
-    @GetMapping("/tourism/{idType}/region/{idRegion}/singleObject")
-    public String singleObject(Model model) {
-        model.addAttribute("title", "title");
-        return "singleObject";
-    }
-
     @GetMapping("/tourism/{idType}/region/{idRegion}")
     public String tourismByRegion(@PathVariable int idType, @PathVariable int idRegion, Model model) {
         List<TourismObject> tourismObjectsByRegion = service.findByTypeIdAndRegionId(idType, idRegion);
@@ -48,25 +41,26 @@ public class MainController {
         return "tourismObjects";
     }
 
-
-    @PostMapping("/tourism/add")
-    public ResponseEntity<Integer> addTourismObject(@RequestBody TourismObject tourismObject) {
-        service.addTourismObject(tourismObject);
-        return ResponseEntity.ok(tourismObject.getId());
-
-    }
+//    @PostMapping("/tourism/add")
+//    public ResponseEntity<Integer> addTourismObject(@RequestBody TourismObject tourismObject) {
+//        service.addTourismObject(tourismObject);
+//        return ResponseEntity.ok(tourismObject.getId());
+//
+//    }
 
     @GetMapping("tourismobject/{idObject}")
-    public ResponseEntity<Integer> tourismObject(@PathVariable int idObject) {
-        service.findById(idObject);
-        return ResponseEntity.ok(idObject);
+    public String tourismObject(@PathVariable int idObject, Model model) {
+        TourismObject tourismObject = service.findById(idObject);
+        model.addAttribute("tourismObject", tourismObject);
+        return "singleObject";
     }
 
-    @PutMapping("tourismobject/update/{idObject}")
-    public ResponseEntity<?> updateTourismObject(@RequestBody TourismObject updatedTourismObject, @PathVariable int idObject) {
-        service.updateTourismObject(updatedTourismObject, idObject);
-        return ResponseEntity.ok(tourismObject(idObject));
-    }
+//    @PutMapping("tourismobject/update/{idObject}")
+//    public ResponseEntity<?> updateTourismObject(@RequestBody TourismObject updatedTourismObject, @PathVariable int idObject) {
+//        service.updateTourismObject(updatedTourismObject, idObject);
+//
+//        return ResponseEntity.ok(tourismObject(idObject));
+//    }
 
 }
 

@@ -84,14 +84,15 @@
     </div>
     <div class="container">
         <div class="jumbotron mt-3">
-            <h1>Nosaukums</h1>
-            <p class="lead">Addresse</p>
-            <p class="lead">Telefona numurs</p>
-            <img class="card-img-right" src="" alt="Card image">
+
+            <h1 th:text="${tourismObject.getName()}">Nosaukums</h1>
+            <p th:text="${tourismObject.getAddress()}">Addresse</p>
+            <p th:text="${tourismObject.getPhone()}">Telefona numurs</p>
+            <img class="card-img-right" th:src="${tourismObject.getImagePath()}" alt="Card image">
         </div>
     </div>
 </header>
-<body>
+
 <div class="fb-comments" data-href="https://developers.facebook.com/docs/plugins/comments#configurator" data-numposts="5" data-width=""></div>
 
 <div id="fb-root"></div>
