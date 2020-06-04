@@ -62,5 +62,12 @@ public class MainController {
 //        return ResponseEntity.ok(tourismObject(idObject));
 //    }
 
+    @GetMapping("/tourism/{idType}/region/{idRegion}/subtype/{idSubtype}")
+    public String tourismByRegionAndSubtype(@PathVariable int idType, @PathVariable int idRegion, @PathVariable int idSubtype, Model model) {
+        List<TourismObject> tourismObjectsByRegionAndSubtype = service.findByTypeIdAndRegionIdAndSubtypeId(idType, idRegion, idSubtype);
+        model.addAttribute("tourismObjects", tourismObjectsByRegionAndSubtype);
+        return "tourismObjects";
+    }
+
 }
 
