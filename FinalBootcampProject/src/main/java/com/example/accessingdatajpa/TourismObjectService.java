@@ -57,6 +57,8 @@ public class TourismObjectService {
             tourismObject.setType(updatedTourismObject.getType());
             return repo.save(tourismObject);
         });
-
+    }
+    public List<TourismObject> findByTypeIdAndRegionIdAndSubtypeId(int idType, int idRegion, int idSubtype) {
+        return repo.findByTypeIdAndRegionIdAndSubtypeId(idType, idRegion, idSubtype);
     }
 }
