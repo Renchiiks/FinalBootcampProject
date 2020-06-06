@@ -14,10 +14,12 @@
         font-family: "Century Gothic", sans-serif;
     }
     header {
-        background-image: linear-gradient(rgba(0,0,0,0.1),rgba(0,0,0,0.1)),url("https://wallpapercave.com/wp/wp2168931.jpg");
-        height: 100vh;
-        background-size: cover;
+        background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url("https://wallpapercave.com/wp/wp2168931.jpg");
+        min-height: 900px;
+        background-attachment: scroll;
         background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
     }
 
     ul{
@@ -45,19 +47,7 @@
         color: white;
     }
 
-    .container{
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
 
-    }
-    .card-img-right{
-        position: absolute;
-        top: 40%;
-        left:70%;
-        transform: translate(-50%, -50%);
-    }
 
     .btn{
         border: 1px solid white;
@@ -70,6 +60,63 @@
         background-color: white;
         color:black;
     }
+    body {
+        background:linear-gradient(90deg, #e8e8e8 50%, #3d009e 50%);
+    }
+
+    .portfolio {
+        padding:6%;
+        text-align:center;
+
+    }
+
+    .heading img {
+        width:10%;
+    }
+
+    .bio-info {
+        padding:5%;
+        background:#fff;
+        box-shadow:0px 0px 4px 0px #b0b3b7;
+    }
+
+
+    .bio-image {
+        text-align:center;
+    }
+    .bio-image img {
+        width: 420px;
+        height:350px;
+        padding-right: 10px;
+        padding-top: 10px;
+    }
+
+    .bio-content {
+        text-align:left;
+    }
+
+    .bio-content p {
+        font-weight:400;
+        font-size:15px;
+    }
+
+    .bio-content h5 {
+        font-weight:bold;
+
+    }
+    a {
+    color: #00000030;
+    font-size: 1.2em;
+    padding-top: 10px;
+}
+    .heart i.fa-heart{
+        color: #f44336;
+    }
+
+.heart{
+    animation: heart 0.5s linear;
+}
+
 
 </style>
 <body>
@@ -82,20 +129,57 @@
             <li><a href="/tourism/2/region" class="btn">Lauku tūrisms</a> </li>
         </ul>
     </div>
-    <div class="container">
-        <div class="jumbotron mt-3">
 
-            <h1 th:text="${tourismObject.getName()}">Nosaukums</h1>
-            <p th:text="${tourismObject.getAddress()}">Addresse</p>
-            <p th:text="${tourismObject.getPhone()}">Telefona numurs</p>
-            <img class="card-img-right" th:src="${tourismObject.getImagePath()}" alt="Card image">
+    <div class="container portfolio">
+        <div class="bio-info">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="bio-image">
+                                <img th:src="${tourismObject.getImagePath()}"alt="image"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="bio-content">
+                        <h1 th:text="${tourismObject.getName()}">Nosaukums </h1>
+                        <a href="#" onclick="AddValue()" class="like"><i class="fa fa-heart" aria-hidden="true"></i>&nbsp;0</a>
+                        <h5>Addrese:</h5><h6 th:text="${tourismObject.getAddress()}">Addresse</h6>
+                        <h5>Telefona numurs:</h5><h6 th:text="${tourismObject.getPhone()}">Telefona numurs</h6>
+
+                       <h5>Informācija:</h5> <p th:text="${tourismObject.getDescription()}">Par objektu</p>
+                        <button class="btn btn-labeled btn-info" type="button"> <span class="btn-label"><i class="fa fa-pencil"></i> Update</button>
+
+
+                </div>
+            </div>
         </div>
     </div>
+</div>
+</div>
 </header>
 
-<div class="fb-comments" data-href="https://developers.facebook.com/docs/plugins/comments#configurator" data-numposts="5" data-width=""></div>
 
-<div id="fb-root"></div>
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/ru_RU/sdk.js#xfbml=1&version=v7.0"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script>
+$(document).ready(function(){
+    $(".like").click(function () {
+
+        $(this).toggleClass("heart");
+
+    });
+});
+</script>
+<script>
+var startingNumber =0;
+function AddValue() {
+    startingNumber++;
+    $(this).text(startingNumber);
+
+}
+</script>
 </body>
 </html>

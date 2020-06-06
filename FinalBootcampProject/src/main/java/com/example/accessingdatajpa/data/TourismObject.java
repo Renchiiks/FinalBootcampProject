@@ -26,6 +26,7 @@ public class TourismObject {
         this.region = region;
         this.type = type;
         this.subtype = subtype;
+
     }
 
     @Id
