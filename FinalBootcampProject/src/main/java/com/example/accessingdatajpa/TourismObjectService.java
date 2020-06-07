@@ -30,7 +30,7 @@ public class TourismObjectService {
         repo.deleteById(id);
     }
 
-    public List<TourismObject> findByRegion(int id) {
+    public List<TourismObject> findBySubtype(int id) {
         return repo.findByRegionId(id);
     }
 

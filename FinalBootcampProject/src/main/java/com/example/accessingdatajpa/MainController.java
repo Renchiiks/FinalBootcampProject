@@ -3,14 +3,12 @@ package com.example.accessingdatajpa;
 import com.example.accessingdatajpa.data.Subtype;
 import com.example.accessingdatajpa.data.TourismObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 
@@ -38,7 +36,7 @@ public class MainController {
     }
 
     @GetMapping("/tourism/{idType}/region/{idRegion}")
-    public String tourismByRegion(@PathVariable int idType, @PathVariable int idRegion, Model model) {
+    public String tourismByTypeAndRegion(@PathVariable int idType, @PathVariable int idRegion, Model model) {
         List<TourismObject> byTypeIdAndRegionId = service.findByTypeIdAndRegionId(idType, idRegion);
         List<Subtype> subtypeList = new ArrayList<>();
         for (TourismObject tourismObject : byTypeIdAndRegionId) {
@@ -78,8 +76,10 @@ public class MainController {
     public String tourismByRegionAndSubtype(@PathVariable int idType, @PathVariable int idRegion, @PathVariable int idSubtype, Model model) {
         List<TourismObject> tourismObjectsByRegionAndSubtype = service.findByTypeIdAndRegionIdAndSubtypeId(idType, idRegion, idSubtype);
         model.addAttribute("tourismObjects", tourismObjectsByRegionAndSubtype);
+        model.addAttribute("idRegion", idRegion);
+        model.addAttribute("idType", idType);
+
         return "tourismObjects";
     }
-
 }
 
