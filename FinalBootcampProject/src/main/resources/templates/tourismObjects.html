@@ -140,7 +140,7 @@
                     <th>Foto</th>
                     <th>Nosaukums</th>
                     <th>Adrese</th>
-                    <th>Telefona numurs</th>
+                    <th style="white-space: nowrap">Telefona numurs</th>
                     <th>Kategorija</th>
                     <th>Darbība</th>
                 </tr>
@@ -155,9 +155,7 @@
                     <td th:text="${tourismobject.getAddress()}">Adrese</td>
                     <td th:text="${tourismobject.getPhone()}">Telefona numurs</td>
                     <td th:text="${tourismobject.getSubtype().getSubtype_name()}">Ketegorija</td>
-                    <td><a th:href="${'/tourismobject/'+ tourismobject.getId()}" type="button" class="btn btn-primary">Uzzināt
-                        vairāk</a>
-                    </td>
+                    <td><a th:href="${'/tourismobject/'+ tourismobject.getId()}" type="button" class="btn btn-primary" style="white-space: nowrap">Uzzināt vairāk</a></td>
                 </tr>
                 </tbody>
                 <tfoot>
@@ -235,9 +233,8 @@
 
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Saglabāt</button>
-                            <button type="submit" class="btn btn-primary">Aizvērt</button>
-                        </div>
+                            <button type="button" class="btn btn-primary">Saglabāt</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Aizvērt</button>                        </div>
                     </div>
                 </div>
             </div>
@@ -253,7 +250,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
         crossorigin="anonymous"></script>
-<script src="https:////cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 <script>
 
 

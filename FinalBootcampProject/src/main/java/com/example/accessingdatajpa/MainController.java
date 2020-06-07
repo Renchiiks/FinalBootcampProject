@@ -81,5 +81,6 @@ public class MainController {
 
         return "tourismObjects";
     }
+
 }
 
