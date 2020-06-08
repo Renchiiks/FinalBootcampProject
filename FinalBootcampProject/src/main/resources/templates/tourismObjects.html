@@ -106,6 +106,9 @@
             <li><a href="/home" class="btn">Galvena</a></li>
             <li><a href="/tourism/1/region" class="btn">Pilsētas tūrisms</a></li>
             <li><a href="/tourism/2/region" class="btn">Lauku tūrisms</a></li>
+            <button type="button" class="btn btn-success float-left" onclick="showAddDialog();"><span
+                    class="btn-label"><i class="fa fa-plus"></i></span>&nbsp;Pievienot objektu
+            </button>
         </ul>
     </div>
 
@@ -113,7 +116,7 @@
     <div class="container mb-8 mt-8">
         <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Meklēt pēc Adreses...">
 
-        <div th:if="${ subtypes!=null }" class="dropdown">
+        <div th:if="${ subtypesFilter!=null }" class="dropdown">
 
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
@@ -122,60 +125,57 @@
             <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
 
                 <a th:href="${'/tourism/' + idType + '/region/' + idRegion +'/subtype/' + subtype.getId()}"
-                   th:each="subtype: ${subtypes}"
-                   th:text="${subtype.getSubtype_name()}" class="dropdown-item" type="button">
+                   th:each="subtype: ${subtypesFilter}"
+                   th:text="${subtype.getName()}" class="dropdown-item" type="button">
 
                 </a>
             </div>
         </div>
 
-            <button type="button" class="btn btn-success float-right" onclick="showAddDialog();"><span
-                    class="btn-label"><i class="fa fa-plus"></i></span>&nbsp;Pievienot objektu
-            </button>
 
-            <table id="myTable" class="table table-bordered " style="width: 100%">
-                <thead>
-                <tr>
+        <table id="myTable" class="table table-bordered " style="width: 100%">
+            <thead>
+            <tr>
 
-                    <th>Foto</th>
-                    <th>Nosaukums</th>
-                    <th>Adrese</th>
-                    <th>Telefona numurs</th>
-                    <th>Kategorija</th>
-                    <th>Darbība</th>
-                </tr>
-                </thead>
-                <tbody>
-                <!--/*@thymesVar id="getAllObjects" type=""*/-->
-                <tr th:each="tourismobject: ${tourismObjects}">
+                <th>Foto</th>
+                <th>Nosaukums</th>
+                <th>Adrese</th>
+                <th>Telefona numurs</th>
+                <th>Kategorija</th>
+                <th>Darbība</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!--/*@thymesVar id="getAllObjects" type=""*/-->
+            <tr th:each="tourismobject: ${tourismObjects}">
 
-                    <td><img th:src="${tourismobject.getImagePath()}" width="130" height="80"/></td>
-                    <!--                <td> <img th:attr="src=${tourismobject.getImage()}" width="130" height="80"/></td>-->
-                    <td th:text="${tourismobject.getName()}">Nosaukums</td>
-                    <td th:text="${tourismobject.getAddress()}">Adrese</td>
-                    <td th:text="${tourismobject.getPhone()}">Telefona numurs</td>
-                    <td th:text="${tourismobject.getSubtype().getSubtype_name()}">Ketegorija</td>
-                    <td><a th:href="${'/tourismobject/'+ tourismobject.getId()}" type="button" class="btn btn-primary">Uzzināt
-                        vairāk</a>
-                    </td>
-                </tr>
-                </tbody>
-                <tfoot>
-                <tr>
+                <td><img th:src="${tourismobject.getImagePath()}" width="130" height="80"/></td>
+                <!--                <td> <img th:attr="src=${tourismobject.getImage()}" width="130" height="80"/></td>-->
+                <td th:text="${tourismobject.getName()}">Nosaukums</td>
+                <td th:text="${tourismobject.getAddress()}">Adrese</td>
+                <td th:text="${tourismobject.getPhone()}">Telefona numurs</td>
+                <td th:text="${tourismobject.getSubtype().getName()}">Ketegorija</td>
+                <td><a th:href="${'/tourismobject/'+ tourismobject.getId()}" type="button" class="btn btn-primary">Uzzināt
+                    vairāk</a>
+                </td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
 
-                    <th>Foto</th>
-                    <th>Nosaukums</th>
-                    <th>Adrese</th>
-                    <th>Telefona numurs</th>
-                    <th>Kategorija</th>
-                    <th>Darbība</th>
-                </tr>
-                </tfoot>
-            </table>
+                <th>Foto</th>
+                <th>Nosaukums</th>
+                <th>Adrese</th>
+                <th>Telefona numurs</th>
+                <th>Kategorija</th>
+                <th>Darbība</th>
+            </tr>
+            </tfoot>
+        </table>
 
-        </div>
-        <div id="addDialog" name="addDialog" class="modal" tabindex="-1" role="dialog">
-            <form method="post" id="frmAddTourismObject" name="frmAddTourismObject" action=""></form>
+    </div>
+    <div id="addDialog" name="addDialog" class="modal" tabindex="-1" role="dialog">
+        <form action="#" th:action="@{/tourism/add}" th:object="${newTourismObject}" method="post">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -189,59 +189,63 @@
                              class="alert alert-dismissible fade show alert-danger" role="alert">
                             <p></p>
                         </div>
-                        <input type="hidden" id="hdId" name="hdId">
+                        <input type="hidden" id="hdId" name="hdId" th:field="*{id}">
                         <div class="form-group">
                             <label for="txtName">Objekta Nosaukums: </label>
-                            <input type="text" id="txtName" name="txtName" class="form-control" required>
+                            <input type="text" id="txtName" name="txtName" th:field="*{name}" class="form-control"
+                                   required>
                         </div>
                         <div class="form-group">
                             <label for="txtAddress">Objekta Adrese: </label>
-                            <input type="text" id="txtAddress" name="txtAddress" class="form-control" required>
+                            <input type="text" id="txtAddress" name="txtAddress" th:field="*{address}"
+                                   class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label for="txtPhone">Telefona numurs: </label>
-                            <input type="number" id="txtPhone" name="txtPhone" class="form-control" required>
+                            <input type="number" id="txtPhone" name="txtPhone" th:field="*{phone}" class="form-control"
+                                   required>
                         </div>
                         <div class="form-group">
                             <label for="txtDescription">Apraksts</label>
-                            <textarea class="form-control" id="txtDescription" rows="3" required></textarea>
+                            <textarea class="form-control" id="txtDescription" th:field="*{description}" rows="3"
+                                      required></textarea>
                         </div>
                         <div class="form-group">
                             <label for="photoInput">Pievienot bildi</label>
-                            <input type="file" class="form-control-file" id="photoInput">
+                            <input type="file" class="form-control-file" id="photoInput" th:field="*{imagePath}">
                         </div>
                         <div class="form-group">
                             <label for="sbRegion">Reģions: </label>
-                            <select id="sbRegion" name="sbRegion" class="form-control" required>
-                                <option value="1">Zemgale</option>
-                                <option value="2">Vidzeme</option>
-                                <option value="3">Kurzeme</option>
-                                <option value="4">Latgale</option>
+                            <select id="sbRegion" name="sbRegion" class="form-control"  th:field="*{region}" required>
+                                <option th:each="r: ${regions}" th:value="${r.id}" th:text="${r.getName()}">
+                                    Reģions
+                                </option>
                             </select>
                         </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="typeRadios" id="typeRadiosCity"
-                                   value="option1" checked>
-                            <label class="form-check-label" for="typeRadiosCity">
-                                Pilsētas tūrisms
-                            </label>
+                        <div class="form-group">
+                            <label for="sbSubtype">Kategorija </label>
+                            <select id="sbSubtype" name="sbSubtype" class="form-control" th:field="*{subtype}" required>
+                                <option th:each="st: ${subtypes}" th:value="${st.id}" th:text="${st.getName()}">
+                                    Kategorija
+                                </option>
+                            </select>
                         </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="typeRadios" id="typeRadiosCountry"
-                                   value="option2">
-                            <label class="form-check-label" for="typeRadiosCountry">
-                                Lauku tūrisms
+                        <div th:each="t: ${types}" class="form-check">
+                            <input class="form-check-input" type="radio" th:field="*{type}" th:value="${t.id}"
+                                   name="typeRadios" id="typeRadiosCity"
+                                   value="option1" checked>
+                            <label th:text="${t.getName()}" class="form-check-label" for="typeRadiosCity">
                             </label>
-
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Saglabāt</button>
-                            <button type="submit" class="btn btn-primary">Aizvērt</button>
+                            <button type="submit" class="btn btn-secondary" >Saglabāt</button>
+                            <button type="button" class="btn btn-primary close">Aizvērt</button>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
+    </div>
     </div>
 </header>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"

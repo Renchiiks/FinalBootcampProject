@@ -13,7 +13,7 @@ import javax.persistence.*;
 public class TourismObject {
 
 
-    protected TourismObject() {
+    public TourismObject() {
     }
 
     public TourismObject(int id, String name, String address, String phone, String description, String imagePath, Region region, Type type, Subtype subtype) {
@@ -32,7 +32,7 @@ public class TourismObject {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "object_id")
-    private int id;
+    public int id;
     @Column(name = "object_name")
     private String name;
     @Column(name = "object_address")
