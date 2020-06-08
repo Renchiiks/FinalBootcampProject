@@ -71,7 +71,9 @@ public class MainController {
         model.addAttribute("subtypes", subtypeList);
 
         model.addAttribute("tourismObjects", byTypeIdAndRegionId);
+
         model.addAttribute("newTourismObject", new TourismObject());
+
         return "tourismObjects";
     }
 

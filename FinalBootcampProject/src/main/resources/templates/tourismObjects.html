@@ -154,7 +154,7 @@
                     <td th:text="${tourismobject.getName()}">Nosaukums</td>
                     <td th:text="${tourismobject.getAddress()}">Adrese</td>
                     <td th:text="${tourismobject.getPhone()}">Telefona numurs</td>
-                    <td th:text="${tourismobject.getSubtype().getSubtype_name()}">Ketegorija</td>
+                    <td th:text="${tourismobject.getSubtype().getName()}">Ketegorija</td>
                     <td><a th:href="${'/tourismobject/'+ tourismobject.getId()}" type="button" class="btn btn-primary">Uzzināt
                         vairāk</a>
                     </td>
@@ -175,7 +175,7 @@
 
         </div>
         <div id="addDialog" name="addDialog" class="modal" tabindex="-1" role="dialog">
-            <form method="post" id="frmAddTourismObject" name="frmAddTourismObject" action=""></form>
+            <form action="#" th:action="@{/tourism/add}" th:object="${newTourismObject}" method="post">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -189,26 +189,26 @@
                              class="alert alert-dismissible fade show alert-danger" role="alert">
                             <p></p>
                         </div>
-                        <input type="hidden" id="hdId" name="hdId">
+                        <input type="hidden" id="hdId" name="hdId" th:field="*{id}">
                         <div class="form-group">
                             <label for="txtName">Objekta Nosaukums: </label>
-                            <input type="text" id="txtName" name="txtName" class="form-control" required>
+                            <input type="text" id="txtName" name="txtName" th:field="*{name}" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label for="txtAddress">Objekta Adrese: </label>
-                            <input type="text" id="txtAddress" name="txtAddress" class="form-control" required>
+                            <input type="text" id="txtAddress" name="txtAddress" th:field="*{address}" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label for="txtPhone">Telefona numurs: </label>
-                            <input type="number" id="txtPhone" name="txtPhone" class="form-control" required>
+                            <input type="number" id="txtPhone" name="txtPhone" th:field="*{phone}" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label for="txtDescription">Apraksts</label>
-                            <textarea class="form-control" id="txtDescription" rows="3" required></textarea>
+                            <textarea class="form-control" id="txtDescription"  th:field="*{description}" rows="3" required></textarea>
                         </div>
                         <div class="form-group">
                             <label for="photoInput">Pievienot bildi</label>
-                            <input type="file" class="form-control-file" id="photoInput">
+                            <input type="file" class="form-control-file" id="photoInput" th:field="*{imagePath}">
                         </div>
                         <div class="form-group">
                             <label for="sbRegion">Reģions: </label>
@@ -235,8 +235,8 @@
 
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Saglabāt</button>
-                            <button type="submit" class="btn btn-primary">Aizvērt</button>
+                            <button type="submit" class="btn btn-secondary" >Saglabāt</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Aizvērt</button>
                         </div>
                     </div>
                 </div>
