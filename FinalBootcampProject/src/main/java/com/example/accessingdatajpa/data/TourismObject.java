@@ -4,11 +4,13 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.servlet.annotation.MultipartConfig;
 
 
 @Entity
 @Getter
 @Setter
+@MultipartConfig
 @Table(name = "objects_data")
 public class TourismObject {
 

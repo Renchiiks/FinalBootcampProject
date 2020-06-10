@@ -4,14 +4,21 @@ import com.example.accessingdatajpa.data.Region;
 import com.example.accessingdatajpa.data.Subtype;
 import com.example.accessingdatajpa.data.TourismObject;
 import com.example.accessingdatajpa.data.Type;
+import com.example.accessingdatajpa.storage.FileStorageService;
+import lombok.var;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.annotation.Transient;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +28,10 @@ import java.util.Optional;
 
 public class MainController {
 
+    private static final Logger logger = LoggerFactory.getLogger(MainController.class);
+
+    @Autowired
+    private FileStorageService fileStorageService;
     @Autowired
     private TourismObjectService tourismService;
     @Autowired
@@ -77,13 +88,15 @@ public class MainController {
         return "tourismObjects";
     }
 
-
+    @Transactional
     @PostMapping("/tourism/add")
-    public String addTourismObject(@ModelAttribute("newTourismObject")  TourismObject newTourismObject, Model model) {
-
+    public String addTourismObject(@RequestParam("file") MultipartFile file, @ModelAttribute("newTourismObject")  TourismObject newTourismObject, Model model) {
+        newTourismObject.setImagePath("/media/" + file.getOriginalFilename());
+        String fileName = fileStorageService.storeFile(file);
         tourismService.addTourismObject(newTourismObject);
-
+        model.addAttribute("file", fileName);
         model.addAttribute("tourismObject", newTourismObject);
+
         return "singleObject";
     }
 
@@ -111,6 +124,17 @@ public class MainController {
 
         return "tourismObjects";
     }
+//    @PostMapping("/uploadFile")
+//    public String uploadFile(@RequestParam("file") MultipartFile file) {
+//        String fileName = fileStorageService.storeFile(file);
+//
+////        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+////                .path("/downloadFile/")
+////                .path(fileName)
+////                .toUriString();
+//
+//        return "/media/" + fileName;
+//    }
+
 
 }
-

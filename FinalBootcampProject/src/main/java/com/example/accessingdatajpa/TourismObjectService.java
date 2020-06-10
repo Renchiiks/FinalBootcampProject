@@ -1,17 +1,20 @@
 package com.example.accessingdatajpa;
 
-import com.example.accessingdatajpa.data.Region;
-import com.example.accessingdatajpa.data.Subtype;
 import com.example.accessingdatajpa.data.TourismObject;
-import com.example.accessingdatajpa.data.Type;
+import com.example.accessingdatajpa.storage.FileStorageException;
+import com.example.accessingdatajpa.storage.FileStorageProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 @Service
 public class TourismObjectService {
+
     @Autowired
     private TourismObjectRepository repo;
 
@@ -54,24 +57,26 @@ public class TourismObjectService {
 
     public void addTourismObject(TourismObject tourismObject) {
         repo.save(tourismObject);
+
     }
+
 
     public TourismObject findById(int idObject) {
         return repo.getOne(idObject);
     }
 
-    public void updateTourismObject(TourismObject updatedTourismObject, int idObject) {
-        repo.findById(idObject).map(tourismObject -> {
-            tourismObject.setAddress(updatedTourismObject.getAddress());
-            tourismObject.setDescription(updatedTourismObject.getDescription());
-            tourismObject.setName(updatedTourismObject.getName());
-            tourismObject.setPhone(updatedTourismObject.getPhone());
-            tourismObject.setRegion(updatedTourismObject.getRegion());
-            tourismObject.setSubtype(updatedTourismObject.getSubtype());
-            tourismObject.setType(updatedTourismObject.getType());
-            return repo.save(tourismObject);
-        });
-    }
+//    public void updateTourismObject(TourismObject updatedTourismObject, int idObject) {
+//        repo.findById(idObject).map(tourismObject -> {
+//            tourismObject.setAddress(updatedTourismObject.getAddress());
+//            tourismObject.setDescription(updatedTourismObject.getDescription());
+//            tourismObject.setName(updatedTourismObject.getName());
+//            tourismObject.setPhone(updatedTourismObject.getPhone());
+//            tourismObject.setRegion(updatedTourismObject.getRegion());
+//            tourismObject.setSubtype(updatedTourismObject.getSubtype());
+//            tourismObject.setType(updatedTourismObject.getType());
+//            return repo.save(tourismObject);
+//        });
+//    }
 
     public List<TourismObject> findByTypeIdAndRegionIdAndSubtypeId(int idType, int idRegion, int idSubtype) {
         return repo.findByTypeIdAndRegionIdAndSubtypeId(idType, idRegion, idSubtype);

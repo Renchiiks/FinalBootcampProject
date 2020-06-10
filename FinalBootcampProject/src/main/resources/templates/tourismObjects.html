@@ -133,49 +133,49 @@
         </div>
 
 
-            <table id="myTable" class="table table-bordered " style="width: 100%">
-                <thead>
-                <tr>
+        <table id="myTable" class="table table-bordered " style="width: 100%">
+            <thead>
+            <tr>
 
-                    <th>Foto</th>
-                    <th>Nosaukums</th>
-                    <th>Adrese</th>
-                    <th>Telefona numurs</th>
-                    <th>Kategorija</th>
-                    <th>Darbība</th>
-                </tr>
-                </thead>
-                <tbody>
-                <!--/*@thymesVar id="getAllObjects" type=""*/-->
-                <tr th:each="tourismobject: ${tourismObjects}">
+                <th>Foto</th>
+                <th>Nosaukums</th>
+                <th>Adrese</th>
+                <th>Telefona numurs</th>
+                <th>Kategorija</th>
+                <th>Darbība</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!--/*@thymesVar id="getAllObjects" type=""*/-->
+            <tr th:each="tourismobject: ${tourismObjects}">
 
-                    <td><img th:src="${tourismobject.getImagePath()}" width="130" height="80"/></td>
-                    <!--                <td> <img th:attr="src=${tourismobject.getImage()}" width="130" height="80"/></td>-->
-                    <td th:text="${tourismobject.getName()}">Nosaukums</td>
-                    <td th:text="${tourismobject.getAddress()}">Adrese</td>
-                    <td th:text="${tourismobject.getPhone()}">Telefona numurs</td>
-                    <td th:text="${tourismobject.getSubtype().getName()}">Ketegorija</td>
-                    <td><a th:href="${'/tourismobject/'+ tourismobject.getId()}" type="button" class="btn btn-primary">Uzzināt
-                        vairāk</a>
-                    </td>
-                </tr>
-                </tbody>
-                <tfoot>
-                <tr>
+                <td><img th:src="${tourismobject.getImagePath()}" width="130" height="80"/></td>
+                <!--                <td> <img th:attr="src=${tourismobject.getImage()}" width="130" height="80"/></td>-->
+                <td th:text="${tourismobject.getName()}">Nosaukums</td>
+                <td th:text="${tourismobject.getAddress()}">Adrese</td>
+                <td th:text="${tourismobject.getPhone()}">Telefona numurs</td>
+                <td th:text="${tourismobject.getSubtype().getName()}">Ketegorija</td>
+                <td><a th:href="${'/tourismobject/'+ tourismobject.getId()}" type="button" class="btn btn-primary">Uzzināt
+                    vairāk</a>
+                </td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
 
-                    <th>Foto</th>
-                    <th>Nosaukums</th>
-                    <th>Adrese</th>
-                    <th>Telefona numurs</th>
-                    <th>Kategorija</th>
-                    <th>Darbība</th>
-                </tr>
-                </tfoot>
-            </table>
+                <th>Foto</th>
+                <th>Nosaukums</th>
+                <th>Adrese</th>
+                <th>Telefona numurs</th>
+                <th>Kategorija</th>
+                <th>Darbība</th>
+            </tr>
+            </tfoot>
+        </table>
 
-        </div>
-        <div id="addDialog" name="addDialog" class="modal" tabindex="-1" role="dialog">
-            <form action="#" th:action="@{/tourism/add}" th:object="${newTourismObject}" method="post">
+    </div>
+    <div id="addDialog" name="addDialog" class="modal" tabindex="-1" role="dialog">
+        <form action="#" th:action="@{/tourism/add}" th:object="${newTourismObject}" method="post" enctype="multipart/form-data">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -208,7 +208,7 @@
                         </div>
                         <div class="form-group">
                             <label for="photoInput">Pievienot bildi</label>
-                            <input type="file" class="form-control-file" id="photoInput" th:field="*{imagePath}">
+                            <input type="file" name="file" class="form-control-file" id="photoInput">
                         </div>
                         <div class="form-group">
                             <label for="sbRegion">Reģions: </label>
