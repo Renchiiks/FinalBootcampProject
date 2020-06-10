@@ -22,7 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+
 
 @Controller
 
@@ -63,23 +63,7 @@ public class MainController {
     public String tourismByTypeAndRegion(@PathVariable int idType, @PathVariable int idRegion, Model model) {
         List<TourismObject> byTypeIdAndRegionId = tourismService.findByTypeIdAndRegionId(idType, idRegion);
 
-        List<Subtype> subtypes = new ArrayList<>();
-        for (TourismObject tourismObject : byTypeIdAndRegionId) {
-            Subtype subtype = tourismObject.getSubtype();
-            if (!subtypes.contains(subtype)) {
-                subtypes.add(subtype);
-            }
-        }
-
-        List<Type> typeList = typeService.allTypes();
-        List<Region> regionsList = regionService.allRegions();
-        List<Subtype> subtypeList = subtypeService.allSubtypes();
-
-        model.addAttribute("subtypesFilter", subtypes);
-
-        model.addAttribute("regions", regionsList);
-        model.addAttribute("types", typeList);
-        model.addAttribute("subtypes", subtypeList);
+        getRequired(model, byTypeIdAndRegionId);
 
         model.addAttribute("tourismObjects", byTypeIdAndRegionId);
 
@@ -90,30 +74,34 @@ public class MainController {
 
     @Transactional
     @PostMapping("/tourism/add")
-    public String addTourismObject(@RequestParam("file") MultipartFile file, @ModelAttribute("newTourismObject")  TourismObject newTourismObject, Model model) {
-        newTourismObject.setImagePath("/media/" + file.getOriginalFilename());
-        String fileName = fileStorageService.storeFile(file);
-        tourismService.addTourismObject(newTourismObject);
-        model.addAttribute("file", fileName);
-        model.addAttribute("tourismObject", newTourismObject);
+    public String addTourismObject(@RequestParam("file") MultipartFile file, @ModelAttribute("newTourismObject") TourismObject newTourismObject, Model model) {
 
+        String fileName = fileStorageService.storeFile(file);
+        newTourismObject.setImagePath("/media/" + fileName);
+        model.addAttribute("file", fileName);
+
+        getClassifierLists(model);
+
+        if (newTourismObject.getId() == 0) {
+            tourismService.addTourismObject(newTourismObject);
+
+        } else {
+            tourismService.updateTourismObject(newTourismObject, newTourismObject.id);
+        }
+
+        model.addAttribute("newTourismObject", newTourismObject);
         return "singleObject";
     }
 
     @GetMapping("tourismobject/{idObject}")
     public String tourismObject(@PathVariable int idObject, Model model) {
         TourismObject tourismObject = tourismService.findById(idObject);
-        model.addAttribute("tourismObject", tourismObject);
+
+        getClassifierLists(model);
+
+        model.addAttribute("newTourismObject", tourismObject);
         return "singleObject";
     }
-
-
-//    @PutMapping("tourismobject/update/{idObject}")
-//    public ResponseEntity<?> updateTourismObject(@RequestBody TourismObject updatedTourismObject, @PathVariable int idObject) {
-//        service.updateTourismObject(updatedTourismObject, idObject);
-//
-//        return ResponseEntity.ok(tourismObject(idObject));
-//    }
 
     @GetMapping("/tourism/{idType}/region/{idRegion}/subtype/{idSubtype}")
     public String tourismByRegionAndSubtype(@PathVariable int idType, @PathVariable int idRegion, @PathVariable int idSubtype, Model model) {
@@ -122,19 +110,35 @@ public class MainController {
         model.addAttribute("idRegion", idRegion);
         model.addAttribute("idType", idType);
 
+        getRequired(model, tourismObjectsByRegionAndSubtype);
+
+        model.addAttribute("newTourismObject", new TourismObject());
+
         return "tourismObjects";
     }
-//    @PostMapping("/uploadFile")
-//    public String uploadFile(@RequestParam("file") MultipartFile file) {
-//        String fileName = fileStorageService.storeFile(file);
-//
-////        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-////                .path("/downloadFile/")
-////                .path(fileName)
-////                .toUriString();
-//
-//        return "/media/" + fileName;
-//    }
 
+    private void getRequired(Model model, List<TourismObject> byTypeIdAndRegionId) {
+        List<Subtype> subtypes = new ArrayList<>();
+        for (TourismObject tourismObject : byTypeIdAndRegionId) {
+            Subtype subtype = tourismObject.getSubtype();
+            if (!subtypes.contains(subtype)) {
+                subtypes.add(subtype);
+            }
+        }
+        model.addAttribute("subtypesFilter", subtypes);
 
+        getClassifierLists(model);
+
+    }
+
+    private void getClassifierLists(Model model) {
+        List<Type> typeList = typeService.allTypes();
+        List<Region> regionsList = regionService.allRegions();
+        List<Subtype> subtypeList = subtypeService.allSubtypes();
+
+        model.addAttribute("regions", regionsList);
+        model.addAttribute("types", typeList);
+        model.addAttribute("subtypes", subtypeList);
+    }
 }
+

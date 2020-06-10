@@ -24,8 +24,6 @@ public class Subtype {
     @Column(name = "subtype_name")
     private String name;
 
-
-
     @Override
     public String toString() {
         return "Subtype{" +
