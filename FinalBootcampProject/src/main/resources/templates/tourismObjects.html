@@ -43,7 +43,7 @@
     }
 
     th {
-        background-color: black;
+        background-color: dimgray;
         color: white;
     }
 
@@ -75,13 +75,6 @@
         color: black;
     }
 
-
-    .button {
-        position: absolute;
-        top: 62%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
 
     .btn {
         border: 1px solid white;
@@ -118,7 +111,7 @@
 
         <div th:if="${ subtypesFilter!=null }" class="dropdown">
 
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"
+            <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
                 Tūrisma veids
             </button>
@@ -136,45 +129,45 @@
             <thead>
             <tr>
 
-                <th>Foto</th>
-                <th>Nosaukums</th>
-                <th>Adrese</th>
-                <th>Telefona numurs</th>
-                <th>Kategorija</th>
-                <th>Darbība</th>
-            </tr>
-            </thead>
-            <tbody>
-            <!--/*@thymesVar id="getAllObjects" type=""*/-->
-            <tr th:each="tourismobject: ${tourismObjects}">
+                    <th>Foto</th>
+                    <th>Nosaukums</th>
+                    <th>Adrese</th>
+                    <th style="white-space: nowrap">Telefona numurs</th>
+                    <th>Kategorija</th>
+                    <th>Darbība</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!--/*@thymesVar id="getAllObjects" type=""*/-->
+                <tr th:each="tourismobject: ${tourismObjects}">
 
-                <td><img th:src="${tourismobject.getImagePath()}" width="130" height="80"/></td>
-                <!--                <td> <img th:attr="src=${tourismobject.getImage()}" width="130" height="80"/></td>-->
-                <td th:text="${tourismobject.getName()}">Nosaukums</td>
-                <td th:text="${tourismobject.getAddress()}">Adrese</td>
-                <td th:text="${tourismobject.getPhone()}">Telefona numurs</td>
-                <td th:text="${tourismobject.getSubtype().getName()}">Ketegorija</td>
-                <td><a th:href="${'/tourismobject/'+ tourismobject.getId()}" type="button" class="btn btn-primary">Uzzināt
-                    vairāk</a>
-                </td>
-            </tr>
-            </tbody>
-            <tfoot>
-            <tr>
+                    <td><img th:src="${tourismobject.getImagePath()}" width="130" height="80"/></td>
+                    <!--                <td> <img th:attr="src=${tourismobject.getImage()}" width="130" height="80"/></td>-->
+                    <td th:text="${tourismobject.getName()}">Nosaukums</td>
+                    <td th:text="${tourismobject.getAddress()}">Adrese</td>
+                    <td th:text="${tourismobject.getPhone()}">Telefona numurs</td>
+                    <td th:text="${tourismobject.getSubtype().getName()}">Ketegorija</td>
+                    <td><a th:href="${'/tourismobject/'+ tourismobject.getId()}" type="button" class="btn btn-primary" style="white-space: nowrap">Uzzināt
+                        vairāk</a>
+                    </td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
 
-                <th>Foto</th>
-                <th>Nosaukums</th>
-                <th>Adrese</th>
-                <th>Telefona numurs</th>
-                <th>Kategorija</th>
-                <th>Darbība</th>
-            </tr>
-            </tfoot>
-        </table>
+                    <th>Foto</th>
+                    <th>Nosaukums</th>
+                    <th>Adrese</th>
+                    <th>Telefona numurs</th>
+                    <th>Kategorija</th>
+                    <th>Darbība</th>
+                </tr>
+                </tfoot>
+            </table>
 
-    </div>
-    <div id="addDialog" name="addDialog" class="modal" tabindex="-1" role="dialog">
-        <form action="#" th:action="@{/tourism/add}" th:object="${newTourismObject}" method="post" enctype="multipart/form-data">
+        </div>
+        <div id="addDialog" name="addDialog" class="modal" tabindex="-1" role="dialog">
+            <form action="#" th:action="@{/tourism/add}" th:object="${newTourismObject}" method="post" enctype="multipart/form-data">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">

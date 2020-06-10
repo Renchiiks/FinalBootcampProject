@@ -43,7 +43,7 @@ public class MainController {
 
     @GetMapping("/home")
     public String home(Model model) {
-        model.addAttribute("title", "Main Page");
+        model.addAttribute("title", "Galvena");
         return "home";
     }
 
