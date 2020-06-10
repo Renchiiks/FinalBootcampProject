@@ -183,19 +183,19 @@
                     <input type="hidden" id="hdId" name="hdId">
                     <div class="form-group">
                         <label for="txtName">Objekta Nosaukums: </label>
-                        <input type="text" id="txtName" name="txtName" class="form-control" required>
+                        <input type="text" id="txtName" name="txtName"  th:value="${tourismObject.getName()}" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label for="txtAddress">Objekta Adrese: </label>
-                        <input type="text" id="txtAddress" name="txtAddress" class="form-control" required>
+                        <input type="text" id="txtAddress" name="txtAddress" th:value="${tourismObject.getAddress()}" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label for="txtPhone">Telefona numurs: </label>
-                        <input type="number" id="txtPhone" name="txtPhone" class="form-control" required>
+                        <input type="number" id="txtPhone" name="txtPhone" th:value="${tourismObject.getPhone()}" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label for="txtDescription">Apraksts</label>
-                        <textarea class="form-control" id="txtDescription" rows="3" required></textarea>
+                        <textarea class="form-control" id="txtDescription" th:text="${tourismObject.getDescription()}"  rows="3" required></textarea>
                     </div>
                     <div class="form-group">
                         <label for="photoInput">Samainīt bildi</label>
@@ -225,7 +225,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" data-dismiss="modal">Saglabāt</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Aizvērt</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Atpakaļ</button>
                     </div>
                 </div>
             </div>
