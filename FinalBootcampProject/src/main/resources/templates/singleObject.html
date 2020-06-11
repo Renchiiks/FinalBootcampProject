@@ -15,7 +15,7 @@
     }
     header {
         background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url("https://wallpapercave.com/wp/wp2168931.jpg");
-        min-height: 900px;
+        min-height: 100px;
         background-attachment: scroll;
         background-position: center;
         background-repeat: no-repeat;
@@ -46,8 +46,6 @@
         background-color: white;
         color: white;
     }
-
-
 
     .btn{
         border: 1px solid white;
@@ -109,13 +107,7 @@
     font-size: 1.2em;
     padding-top: 10px;
 }
-    .heart i.fa-heart{
-        color: #f44336;
-    }
 
-.heart{
-    animation: heart 0.5s linear;
-}
     .fb-comments {
         background-color: white;
         color: white;
@@ -125,16 +117,15 @@
 
 </style>
 <body>
+<div class="main">
+    <ul>
+        <li class="active"></li>
+        <li><a href="/home" class="btn">Galvena</a></li>
+        <li><a href="/tourism/1/region" class="btn">Pilsētas tūrisms</a></li>
+        <li><a href="/tourism/2/region" class="btn">Lauku tūrisms</a></li>
+    </ul>
+</div>
 <header>
-    <div class="main">
-        <ul>
-            <li class="active"></li>
-            <li><a href="/home" class="btn">Galvena</a> </li>
-            <li><a href="/tourism/1/region" class="btn">Pilsētas tūrisms</a> </li>
-            <li><a href="/tourism/2/region" class="btn">Lauku tūrisms</a> </li>
-        </ul>
-    </div>
-
     <div class="container portfolio">
         <div class="bio-info" style="margin-top: 40px">
             <div class="row">
@@ -150,15 +141,14 @@
                 <div class="col-md-6">
                     <div class="bio-content">
                         <h1 th:text="${newTourismObject.getName()}">Nosaukums </h1>
-                        <a href="#" onclick="AddValue()" class="like"><i class="fa fa-heart" aria-hidden="true"></i>&nbsp;0</a>
                         <h5>Addrese:</h5><h6 th:text="${newTourismObject.getAddress()}">Addresse</h6>
                         <h5>Telefona numurs:</h5><h6 th:text="${newTourismObject.getPhone()}">Telefona numurs</h6>
 
                        <h5>Informācija:</h5> <p th:text="${newTourismObject.getDescription()}">Par objektu</p>
                         <div class="button">
                         <button class="btn btn-labeled btn-info" type="button" onclick="showAddDialog();"> <span class="btn-label"><i class="fa fa-pencil"></i></span>&nbsp;Labot</button>
-                            <button id="btnDelete" name="btnDelete" type="button" class="btn btn-danger" onclick="showModalDialog();"> <i class='fas fa-trash-alt'></i>&nbsp;Dzēst</button>
-                            <button type="button" class="btn btn-secondary float-right" onclick="goBack()">Aizvērt</button>
+                            <button id="btnDelete" name="btnDelete" type="button" class="btn btn-danger" onclick="showModalDialog();"> <i class="fa fa-trash-o"></i>&nbsp;Dzēst</button>
+                            <button type="button" class="btn btn-secondary float-right" onclick="goBack()">Atpakaļ</button>
                         </div>
                 </div>
             </div>
@@ -253,7 +243,7 @@
                     <p>Vai tiešām vēlaties dzēst objektu?</p>
                 </div>
                 <div class="modal-footer">
-                    <a type="button" class="btn btn-danger" th:href="@{/tourismobject/delete/{id}(id=${newTourismObject.id})}" method="post"><i class="fa fa-check"></i>&nbsp;Dzēst</a>
+                    <a type="button" class="btn btn-danger" th:href="@{/tourismobject/delete/{id}(id=${newTourismObject.id})}" method="post"><i class="fa fa-trash-o"></i>&nbsp;Dzēst</a>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Atpakaļ</button>
                 </div>
             </div>
@@ -275,23 +265,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
         crossorigin="anonymous"></script>
-<script>
-$(document).ready(function(){
-    $(".like").click(function () {
 
-        $(this).toggleClass("heart");
-
-    });
-});
-</script>
-<script>
-var startingNumber =0;
-function AddValue() {
-    startingNumber++;
-    $(this).text(startingNumber);
-
-}
-</script>
 <script>
     function showAddDialog() {
         $('#addDialog').modal('show');

@@ -4,6 +4,8 @@
     <title th:text="${title}"></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" type="text/css">
+    <link rel="stylesheet"  href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
 </head>
 <style>
     * {
@@ -62,6 +64,7 @@
 
     .btn {
         border: 1px solid white;
+        border-radius: 4px;
         padding: 10px 30px;
         color: white;
         text-decoration: none;
@@ -83,6 +86,8 @@
     .title h1 {
         color: white;
         font-size: 34px;
+        font-family: "Tahoma",sans-serif;
+
     }
 
 
@@ -106,6 +111,7 @@
     .navbutton:hover {
         background-color: white;
         color: black;
+        text-decoration: none;
     }
 
 </style>
@@ -118,10 +124,9 @@
             <li><a href="/tourism/2/region" class="btn">Lauku tūrisms</a></li>
         </ul>
     </div>
-
     <body>
     <div class="title">
-        <h1>IZVĒLIES REGIONU TŪRISMAM <span th:text="${title}"></span></h1>
+        <h1>IZVĒLIES REGIONU TŪRISMAM <span style="font-family: 'Tahoma',sans-serif" th:text="${title}"></span></h1>
     </div>
 
     <div class="center">
