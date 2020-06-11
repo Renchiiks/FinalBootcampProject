@@ -1,17 +1,11 @@
-package com.example.accessingdatajpa;
+package com.example.accessingdatajpa.service;
 
-import com.example.accessingdatajpa.data.Region;
-import com.example.accessingdatajpa.data.Subtype;
 import com.example.accessingdatajpa.data.TourismObject;
-import com.example.accessingdatajpa.storage.FileStorageException;
-import com.example.accessingdatajpa.storage.FileStorageProperties;
+import com.example.accessingdatajpa.repository.TourismObjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 

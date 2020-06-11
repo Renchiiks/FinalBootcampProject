@@ -1,6 +1,7 @@
-package com.example.accessingdatajpa;
+package com.example.accessingdatajpa.service;
 
 import com.example.accessingdatajpa.data.Subtype;
+import com.example.accessingdatajpa.repository.SubtypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

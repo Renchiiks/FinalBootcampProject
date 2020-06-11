@@ -1,4 +1,4 @@
-package com.example.accessingdatajpa;
+package com.example.accessingdatajpa.repository;
 
 
 import com.example.accessingdatajpa.data.TourismObject;
