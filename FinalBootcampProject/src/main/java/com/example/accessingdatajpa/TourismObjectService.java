@@ -24,17 +24,6 @@ public class TourismObjectService {
         return repo.findAll();
     }
 
-//    public List<Region> allRegions(int id) {
-//        return repo.allRegions(id);
-//    }
-//
-//    public List<Type> allTypes(int id) {
-//        return repo.allTypes(id);
-//    }
-//
-//    public List<Subtype> allSubtypes(int id) {
-//        return repo.allSubtypes(id);
-//    }
 
     public List<TourismObject> findByTypeId(int id) {
         return repo.findByTypeId(id);

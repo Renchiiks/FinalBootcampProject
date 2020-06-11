@@ -5,19 +5,13 @@ import com.example.accessingdatajpa.data.Subtype;
 import com.example.accessingdatajpa.data.TourismObject;
 import com.example.accessingdatajpa.data.Type;
 import com.example.accessingdatajpa.storage.FileStorageService;
-import lombok.var;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.annotation.Transient;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -26,7 +20,6 @@ import java.util.List;
 
 
 @Controller
-
 public class MainController {
 
     private static final Logger logger = LoggerFactory.getLogger(MainController.class);
@@ -41,6 +34,12 @@ public class MainController {
     private TypeService typeService;
     @Autowired
     private SubtypeService subtypeService;
+
+    @GetMapping("/")
+    public String index(Model model) {
+        model.addAttribute("title", "Galvena");
+        return "home";
+    }
 
     @GetMapping("/home")
     public String home(Model model) {
@@ -76,7 +75,7 @@ public class MainController {
     @Transactional
     @PostMapping("/tourism/add")
     public String addTourismObject(@RequestParam("file") MultipartFile file, @ModelAttribute("newTourismObject") TourismObject newTourismObject, Model model) {
-        if(!file.isEmpty()) {
+        if (!file.isEmpty()) {
 
             String fileName = fileStorageService.storeFile(file);
             newTourismObject.setImagePath("/media/" + fileName);
@@ -120,8 +119,8 @@ public class MainController {
         return "tourismObjects";
     }
 
-    @GetMapping(value="/tourismobject/delete/{id}")
-    public String delete (@PathVariable int id) {
+    @GetMapping(value = "/tourismobject/delete/{id}")
+    public String delete(@PathVariable int id) {
         tourismService.findById(id);
         try {
             tourismService.delete(id);
@@ -129,6 +128,17 @@ public class MainController {
         } catch (Exception ex) {
             return HttpStatus.BAD_REQUEST.toString();
         }
+    }
+
+    @RequestMapping("/login")
+    public String login() {
+        return "login";
+    }
+
+    @RequestMapping("/login-error")
+    public String loginError(Model model) {
+        model.addAttribute("loginError", true);
+        return "login";
     }
 
     private void getRequired(Model model, List<TourismObject> byTypeIdAndRegionId) {
@@ -154,6 +164,7 @@ public class MainController {
         model.addAttribute("types", typeList);
         model.addAttribute("subtypes", subtypeList);
     }
+
 
 }
 

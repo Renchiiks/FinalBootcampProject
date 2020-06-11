@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <title th:text="${title}"></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -117,6 +117,21 @@
 </style>
 <header>
     <div class="main">
+        <ul class="float-left">
+            <li>
+                <div sec:authorize="!isAuthenticated()">
+                    <a href="/login" class="btn">Login</a>
+                </div>
+            </li>
+            <li>
+            <span sec:authorize="isAuthenticated()">
+            <form name="logoutForm" th:action="@{/logout}" method="post">
+                <button type="submit" class="btn">Logout</button>
+            </form>
+            </span>
+            </li>
+        </ul>
+
         <ul>
             <li class="active"></li>
             <li><a href="/home" class="btn">Galvena</a></li>

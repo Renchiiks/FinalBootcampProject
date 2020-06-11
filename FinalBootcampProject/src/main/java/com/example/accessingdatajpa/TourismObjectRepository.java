@@ -26,8 +26,4 @@ public interface TourismObjectRepository extends JpaRepository<TourismObject, In
     TourismObject deleteById(int id);
 
 
-    //int addTourismObject(TourismObject tourismObject);
-    //addTourismObject(TourismObject tourismObject);
-
-    //ObjectsData findById(int id);
 }
